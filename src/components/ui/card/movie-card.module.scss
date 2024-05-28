@@ -1,0 +1,17 @@
+.card {
+  flex-direction: row !important;
+  width: 30.13rem;
+  height: 13.63rem;
+  padding: 1.5rem;
+}
+
+.image {
+  height: 100%;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-purple-500);
+}
