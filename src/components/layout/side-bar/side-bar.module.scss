@@ -1,0 +1,21 @@
+.title {
+  margin-bottom: 80px;
+  font-family: var(--font-family-title), sans-serif;
+  font-size: 1.5rem;
+  color: var(--color-purple-500);
+}
+
+.list {
+  gap: 16px !important;
+  width: 100%;
+}
+
+.tab {
+  font-size: 1rem;
+
+  &[data-active] {
+    font-weight: 700;
+    color: var(--color-purple-500);
+    background-color: var(--color-purple-200);
+  }
+}
