@@ -1,0 +1,27 @@
+.root {
+  display: flex;
+}
+
+.navbar {
+  position: fixed;
+
+  width: 100%;
+  max-width: 280px;
+  height: 100vh;
+  padding: 24px;
+
+  background-color: var(--color-purple-100) !important;
+  border: none !important;
+}
+
+.main {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 280px;
+
+  background-color: var(--color-grey-100);
+}
