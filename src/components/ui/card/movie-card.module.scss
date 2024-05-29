@@ -1,5 +1,7 @@
 .card {
   flex-direction: row !important;
+  gap: 16px;
+
   width: 30.13rem;
   height: 13.63rem;
   padding: 1.5rem;
@@ -14,4 +16,11 @@
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-purple-500);
+}
+
+.header {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-between;
 }

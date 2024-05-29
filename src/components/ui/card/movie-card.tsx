@@ -1,10 +1,10 @@
+import { StarNR } from '@/assets/icons/notRatedStar'
+import { StarR } from '@/assets/icons/ratedStar'
 import { GenreType } from '@/services/genres/genres-types'
 import { MovieResponseType } from '@/services/movie-list/movie-list-types'
 import { Card, Image } from '@mantine/core'
 
 import s from './movie-card.module.scss'
-
-import ratedStar from './../../../assets/img/rated star.svg'
 
 type CardProps = {
   baseUrl: string
@@ -28,20 +28,27 @@ export const MovieCard = ({ baseUrl, genres, movie, size }: CardProps) => {
       </div>
 
       <div>
-        <h2 className={s.title}>{movie.title}</h2>
-        <p>{year}</p>
-        <div>
-          <img src={ratedStar} />
-          {vote}
-        </div>
-        <div>
-          Genres:
-          {movie.genre_ids.map(genre => {
-            const gN = genres.find(g => g.id === genre)
+        <div className={s.header}>
+          <h2 className={s.title}>{movie.title}</h2>
 
-            return gN?.name
-          })}
+          <p>{year}</p>
+          <div>
+            <StarR />
+            {vote}
+          </div>
+          <div>
+            Genres:
+            {movie.genre_ids.map(genre => {
+              const gN = genres.find(g => g.id === genre)
+
+              return gN?.name
+            })}
+          </div>
         </div>
+      </div>
+      <div>
+        {' '}
+        <StarNR />
       </div>
     </Card>
   )
