@@ -1,0 +1,15 @@
+.filter__select_rating {
+  width: 140px;
+}
+
+.filter__select {
+  & input[data-expanded] + div {
+    transform: rotate(180deg);
+
+    & svg {
+      path {
+        stroke: #9854f6;
+      }
+    }
+  }
+}
