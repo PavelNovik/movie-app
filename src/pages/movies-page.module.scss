@@ -1,3 +1,19 @@
+.filter__container {
+  gap: 16px;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin-bottom: 24px;
+}
+
+.sort__container {
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+.card__container {
+  justify-content: flex-start;
+}
+
 .filter__select_rating {
   width: 140px;
 }
@@ -12,4 +28,8 @@
       }
     }
   }
+}
+
+.wrapper {
+  width: 260px;
 }

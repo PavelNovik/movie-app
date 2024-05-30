@@ -24,10 +24,11 @@ export const MoviesPage = () => {
     <div>
       {isLoading && <Loader />}
       <h2>Movies</h2>
-      <Conatiner>
+      <Conatiner className={s.filter__container}>
         <Select
           checkIconPosition={'right'}
           className={s.filter__select}
+          classNames={{ wrapper: s.wrapper }}
           data={['React', 'Angular', 'Vue', 'Svelte']}
           label={'Genres'}
           placeholder={'Select genre'}
@@ -36,30 +37,33 @@ export const MoviesPage = () => {
         <Select
           checkIconPosition={'right'}
           className={s.filter__select}
+          classNames={{ wrapper: s.wrapper }}
           data={['React', 'Angular', 'Vue', 'Svelte']}
           label={'Release year'}
           placeholder={'Select release year'}
           rightSection={<ArrowDown />}
         />
-        <Select
-          checkIconPosition={'right'}
-          className={s.filter__select_rating}
-          data={['React', 'Angular', 'Vue', 'Svelte']}
-          label={'Ratings'}
-          placeholder={'From'}
-        />
-        <Select
-          checkIconPosition={'right'}
-          className={s.filter__select_rating}
-          data={['React', 'Angular', 'Vue', 'Svelte']}
-          label={' '}
-          placeholder={'To'}
-        />
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+          <Select
+            checkIconPosition={'right'}
+            className={s.filter__select_rating}
+            data={['React', 'Angular', 'Vue', 'Svelte']}
+            label={'Ratings'}
+            placeholder={'From'}
+          />
+          <Select
+            checkIconPosition={'right'}
+            className={s.filter__select_rating}
+            data={['React', 'Angular', 'Vue', 'Svelte']}
+            label={' '}
+            placeholder={'To'}
+          />
+        </div>
         <Button color={'gray'} variant={'transparent'}>
           Reset filters
         </Button>
       </Conatiner>
-      <Conatiner>
+      <Conatiner className={s.sort__container}>
         <Select
           checkIconPosition={'right'}
           className={s.filter__select}
@@ -69,7 +73,7 @@ export const MoviesPage = () => {
           rightSection={<ArrowDown />}
         />
       </Conatiner>
-      <Conatiner>
+      <Conatiner className={s.card__container}>
         {data &&
           data.results.map(movie => (
             <MovieCard
