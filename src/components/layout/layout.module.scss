@@ -21,7 +21,12 @@
   align-items: center;
   justify-content: center;
 
+  width: 100%;
   margin-left: 280px;
 
   background-color: var(--color-grey-100);
+
+  .wrapper {
+    width: 982px;
+  }
 }
