@@ -16,34 +16,42 @@ type CardProps = {
 export const MovieCard = ({ baseUrl, genres, movie, size }: CardProps) => {
   const year = new Date(movie.release_date).getFullYear()
   const vote = movie.vote_average.toFixed(1)
+  const voteCount =
+    // eslint-disable-next-line no-nested-ternary
+    movie.vote_count < 1000
+      ? movie.vote_count
+      : movie.vote_count > 1000 && movie.vote_count < 1000000
+      ? (movie.vote_count / 1000).toFixed(1) + 'K'
+      : (movie.vote_count / 1000000).toFixed(1) + 'M'
 
   return (
     <Card className={s.card} padding={'lg'} radius={'md'}>
-      <div>
-        <Image
-          alt={movie.title}
-          className={s.image}
-          src={`${baseUrl}${size}${movie.poster_path}`}
-        />
+      <div className={s.image}>
+        <Image alt={movie.title} src={`${baseUrl}${size}${movie.poster_path}`} />
       </div>
-
-      <div>
+      <div className={s.info}>
         <div className={s.header}>
           <h2 className={s.title}>{movie.title}</h2>
 
           <p>{year}</p>
-          <div>
+          <div className={s.vote}>
             <StarR />
-            {vote}
+            <span>{vote}</span>
+            <span className={s.vote_count}>({voteCount})</span>
           </div>
-          <div>
-            Genres:
-            {movie.genre_ids.map(genre => {
-              const gN = genres.find(g => g.id === genre)
+        </div>
+        <div className={s.genres}>
+          <span>Genres&nbsp;</span>
+          {movie.genre_ids.map((genre, index, arr) => {
+            if (index > 1) {
+              return
+            }
+            // if (genres) {
+            const gN = genres?.find(g => g.id === genre)
 
-              return gN?.name
-            })}
-          </div>
+            return index === 0 && arr.length > 1 ? ' ' + gN?.name + ',' : ' ' + gN?.name
+            // }
+          })}
         </div>
       </div>
       <div>
