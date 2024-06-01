@@ -13,5 +13,5 @@ export const baseApi = createApi({
   }),
   endpoints: () => ({}),
   reducerPath: 'baseApi',
-  tagTypes: ['MovieList', 'Configuration', 'Genres'],
+  tagTypes: ['MovieList', 'Configuration', 'Genres', 'Movies'],
 })
