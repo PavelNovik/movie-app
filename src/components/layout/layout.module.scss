@@ -7,7 +7,7 @@
 
   width: 100%;
   max-width: 280px;
-  height: 100vh;
+  min-height: 100vh;
   padding: 24px;
 
   background-color: var(--color-purple-100) !important;
@@ -22,6 +22,7 @@
   justify-content: center;
 
   width: 100%;
+  min-height: 100vh;
   margin-left: 280px;
 
   background-color: var(--color-grey-100);
