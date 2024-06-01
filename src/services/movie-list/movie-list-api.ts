@@ -1,11 +1,19 @@
 import { baseApi } from '@/services/base-api'
 import {
+  GetMoviesRequest,
   MovieListResponseType,
   MovieWithDatesResponseType,
 } from '@/services/movie-list/movie-list-types'
 
 export const movieListApi = baseApi.injectEndpoints({
   endpoints: builder => ({
+    getMovies: builder.query<MovieListResponseType, GetMoviesRequest | void>({
+      providesTags: ['Movies'],
+      query: args => ({
+        params: args ?? undefined,
+        url: 'discover/movie',
+      }),
+    }),
     getNowPlayingMoviesList: builder.query<MovieWithDatesResponseType, void>({
       providesTags: ['MovieList'],
       query: () => ({
@@ -34,6 +42,7 @@ export const movieListApi = baseApi.injectEndpoints({
 })
 
 export const {
+  useGetMoviesQuery,
   useGetNowPlayingMoviesListQuery,
   useGetPopularMoviesListQuery,
   useGetTopRatedMoviesListQuery,
