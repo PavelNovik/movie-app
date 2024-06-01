@@ -30,3 +30,8 @@ export type MovieResponseType = {
 }
 
 export type MovieWithDatesResponseType = MovieDates & MovieResponseType
+
+export type GetMoviesRequest = {
+  page?: number
+  with_genres?: string
+}
