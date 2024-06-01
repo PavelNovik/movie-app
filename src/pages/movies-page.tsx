@@ -5,31 +5,39 @@ import { Conatiner } from '@/components/ui/container/conatiner'
 import { useGetConfigurationQuery } from '@/services/configuration/configuration-api'
 import { useGetMovieGenresQuery } from '@/services/genres/genre-api'
 import { GenreType } from '@/services/genres/genres-types'
-import { useGetPopularMoviesListQuery } from '@/services/movie-list/movie-list-api'
+import { useGetMoviesQuery } from '@/services/movie-list/movie-list-api'
 import { Button, Loader, Select, Text } from '@mantine/core'
 
 import s from './movies-page.module.scss'
 
 export const MoviesPage = () => {
-  const { data, isLoading } = useGetPopularMoviesListQuery()
+  // const { data, isLoading } = useGetPopularMoviesListQuery()
   const { data: configuration } = useGetConfigurationQuery()
   const { data: genres } = useGetMovieGenresQuery()
+  const { data: movies, isLoading: isMoviesLoading } = useGetMoviesQuery({
+    page: 2,
+    with_genres: '35',
+  })
 
-  console.log(configuration)
-
-  console.log(data)
+  // console.log(configuration)
+  //
+  // console.log(data)
   console.log(genres)
+  console.log(movies)
 
   return (
     <div>
-      {isLoading && <Loader />}
+      {isMoviesLoading && <Loader />}
       <h2>Movies</h2>
       <Conatiner className={s.filter__container}>
         <Select
           checkIconPosition={'right'}
           className={s.filter__select}
           classNames={{ wrapper: s.wrapper }}
-          data={['React', 'Angular', 'Vue', 'Svelte']}
+          data={genres?.genres?.map((genre: GenreType) => ({
+            label: genre.name,
+            value: genre.id.toString(),
+          }))}
           label={'Genres'}
           placeholder={'Select genre'}
           rightSection={<ArrowDown />}
@@ -74,8 +82,8 @@ export const MoviesPage = () => {
         />
       </Conatiner>
       <Conatiner className={s.card__container}>
-        {data &&
-          data.results.map(movie => (
+        {movies &&
+          movies.results.map(movie => (
             <MovieCard
               baseUrl={configuration?.images.base_url as string}
               genres={genres?.genres as GenreType[]}
@@ -84,7 +92,7 @@ export const MoviesPage = () => {
               size={configuration?.images.poster_sizes[0] as string}
             />
           ))}
-        {!isLoading && !data && (
+        {!isMoviesLoading && movies?.results.length === 0 && (
           <Conatiner>
             <Find />
             <Text>We don&apos;t have such movies, look for another one</Text>
