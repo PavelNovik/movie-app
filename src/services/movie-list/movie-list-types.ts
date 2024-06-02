@@ -34,5 +34,7 @@ export type MovieWithDatesResponseType = MovieDates & MovieResponseType
 export type GetMoviesRequest = {
   page?: number
   primary_release_year?: number
+  'vote_average.gte'?: number
+  'vote_average.lte'?: number
   with_genres?: string
 }

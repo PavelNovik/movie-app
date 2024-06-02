@@ -14,13 +14,18 @@ import s from './movies-page.module.scss'
 
 export const MoviesPage = () => {
   const [selectGenres, setSelectGenres] = useState<string | undefined>(undefined)
+  const [selectYear, setSelectYear] = useState<number | undefined>(undefined)
+  const [selectLowRating, setSelectLowRating] = useState<number | undefined>(undefined)
+  const [selectHightRating, setSelectHightRating] = useState<number | undefined>(undefined)
 
   // const { data, isLoading } = useGetPopularMoviesListQuery()
   const { data: configuration } = useGetConfigurationQuery()
   const { data: genres } = useGetMovieGenresQuery()
   const { data: movies, isLoading: isMoviesLoading } = useGetMoviesQuery({
     page: 2,
-    // primary_release_year: 1980,
+    primary_release_year: selectYear,
+    'vote_average.gte': selectLowRating,
+    'vote_average.lte': selectHightRating,
     with_genres: selectGenres,
   })
 
@@ -28,7 +33,24 @@ export const MoviesPage = () => {
     label: genre.name,
     value: genre.id.toString(),
   }))
-  const selectYearValues = ['2024', '2023', '2022', '2021', '2020']
+  const selectYearValues = []
+
+  for (let i = 2024; i > 1950; i--) {
+    selectYearValues.push(i.toString())
+  }
+
+  const selectRatingValues = []
+
+  for (let i = 0; i <= 10; i++) {
+    selectRatingValues.push(i.toString())
+  }
+
+  const onResetFilter = () => {
+    setSelectGenres(undefined)
+    setSelectYear(undefined)
+    setSelectLowRating(undefined)
+    setSelectHightRating(undefined)
+  }
 
   return (
     <div>
@@ -51,6 +73,7 @@ export const MoviesPage = () => {
           classNames={{ wrapper: s.wrapper }}
           data={selectYearValues}
           label={'Release year'}
+          onChange={(_, option) => setSelectYear(+option.value)}
           placeholder={'Select release year'}
           rightSection={<ArrowDown />}
         />
@@ -58,19 +81,21 @@ export const MoviesPage = () => {
           <Select
             checkIconPosition={'right'}
             className={s.filter__select_rating}
-            data={['React', 'Angular', 'Vue', 'Svelte']}
+            data={selectRatingValues}
             label={'Ratings'}
+            onChange={(_, option) => setSelectLowRating(+option.value)}
             placeholder={'From'}
           />
           <Select
             checkIconPosition={'right'}
             className={s.filter__select_rating}
-            data={['React', 'Angular', 'Vue', 'Svelte']}
+            data={selectRatingValues}
             label={' '}
+            onChange={(_, option) => setSelectHightRating(+option.value)}
             placeholder={'To'}
           />
         </div>
-        <Button color={'gray'} variant={'transparent'}>
+        <Button color={'gray'} onClick={onResetFilter} variant={'transparent'}>
           Reset filters
         </Button>
       </Conatiner>
