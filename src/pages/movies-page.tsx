@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { ArrowDown } from '@/assets/icons/arrowDown'
 import { Find } from '@/assets/icons/find'
 import { MovieCard } from '@/components/ui/card/movie-card'
@@ -11,19 +13,22 @@ import { Button, Loader, Select, Text } from '@mantine/core'
 import s from './movies-page.module.scss'
 
 export const MoviesPage = () => {
+  const [selectGenres, setSelectGenres] = useState<string | undefined>(undefined)
+
   // const { data, isLoading } = useGetPopularMoviesListQuery()
   const { data: configuration } = useGetConfigurationQuery()
   const { data: genres } = useGetMovieGenresQuery()
   const { data: movies, isLoading: isMoviesLoading } = useGetMoviesQuery({
     page: 2,
-    with_genres: '35',
+    // primary_release_year: 1980,
+    with_genres: selectGenres,
   })
 
-  // console.log(configuration)
-  //
-  // console.log(data)
-  console.log(genres)
-  console.log(movies)
+  const selectGenresValues = genres?.genres?.map((genre: GenreType) => ({
+    label: genre.name,
+    value: genre.id.toString(),
+  }))
+  const selectYearValues = ['2024', '2023', '2022', '2021', '2020']
 
   return (
     <div>
@@ -34,11 +39,9 @@ export const MoviesPage = () => {
           checkIconPosition={'right'}
           className={s.filter__select}
           classNames={{ wrapper: s.wrapper }}
-          data={genres?.genres?.map((genre: GenreType) => ({
-            label: genre.name,
-            value: genre.id.toString(),
-          }))}
+          data={selectGenresValues}
           label={'Genres'}
+          onChange={(_value, option) => setSelectGenres(option.value)}
           placeholder={'Select genre'}
           rightSection={<ArrowDown />}
         />{' '}
@@ -46,7 +49,7 @@ export const MoviesPage = () => {
           checkIconPosition={'right'}
           className={s.filter__select}
           classNames={{ wrapper: s.wrapper }}
-          data={['React', 'Angular', 'Vue', 'Svelte']}
+          data={selectYearValues}
           label={'Release year'}
           placeholder={'Select release year'}
           rightSection={<ArrowDown />}
